@@ -1,0 +1,254 @@
+HIV_By_Country <- read_excel("C:/Users/saura/OneDrive/Desktop/HIV_By_Country.xlsx", 
+                             +     sheet = "Sheet2")
+View(HIV_By_Country)
+
+hiv<-HIV_By_Country
+hiv<-data.frame(hiv)
+hiv$Chosen <- 0
+hiv[-tapply(-seq_along(hiv$Country.Region),hiv$Country.Region, sample, size=1),]$Chosen <- 1
+view(hiv1)
+hiv1<-hiv[hiv$Chosen==1,]
+library(lubridate)
+labels(hiv)
+class(hiv$Chosen)
+write_excel_csv(hiv1, path = "C:\\Users\\saura\\OneDrive\\Desktop\\")
+install.packages("xlsx")
+library(xlsx)
+write.xlsx(hiv1, "C:\\Users\\saura\\OneDrive\\Desktop\\")
+
+
+Data_for_Modelling_stats_paper <- read_excel("C:/Users/saura/OneDrive/Desktop/Data for Modelling_stats_paper.xlsx", 
+                                             +     sheet = "Prepared Data")
+> View(Data_for_Modelling_stats_paper)
+final<-Data_for_Modelling_stats_paper
+final<as.data.frame(final)
+class(final)
+class(Data_for_Modelling_stats_paper)
+model<- lm(final$`Deaths - HIV/AIDS - Sex: Both - Age: Age-standardized (Rate) (per 100,000 people)`
+           ~final$`Awareness (% of young people with correct knowledge of HIV)`)
+summary(model)
+plot(model)\
+scatter.smooth(f$`Awareness (% of young people with correct knowledge of HIV)`,f$`Deaths - HIV/AIDS - Sex: Both - Age: Age-standardized (Rate) (per 100,000 people)*100`)
+predict(model)
+plot(final$`Awareness (% of young people with correct knowledge of HIV)`,final$`Deaths - HIV/AIDS - Sex: Both - Age: Age-standardized (Rate) (per 100,000 people)`
+summary(final$`Deaths - HIV/AIDS - Sex: Both - Age: Age-standardized (Rate) (per 100,000 people)`)     
+final$transform<-final$`Deaths - HIV/AIDS - Sex: Both - Age: Age-standardized (Rate) (per 100,000 people)`*100
+Data_for_Modelling_stats_paper <- read_excel("C:/Users/saura/OneDrive/Desktop/Data for Modelling_stats_paper.xlsx", 
+                                             +     sheet = "Prepared Data")
+> View(Data_for_Modelling_stats_paper)
+f<-Data_for_Modelling_stats_paper
+model<-lm(f$`Deaths - HIV/AIDS - Sex: Both - Age: Age-standardized (Rate) (per 100,000 people)`~f$new)
+summary(model)
+AIC(model)
+aggregate(hiv[, 6], list(hiv$Country.Region), mean)
+Data_for_Modelling_stats_paper <- read_excel("C:/Users/saura/OneDrive/Desktop/Data for Modelling_stats_paper.xlsx", 
+                                             +     sheet = "Prepared Data")
+h<-Data_for_Modelling_stats_paper
+head(h)
+h<-data.frame(h)
+summary(model)            
+plot(model)
+predict(model)
+library(forecast)
+accuracy(model)
+summary(h$HIV.Deaths)
+plot(h$HIV.Deaths)
+h1<-h
+head(h1$HIV.Deaths)<-100*(h$HIV.Deaths)
+model<- lm(log(h1$HIV.Deaths)~log(h1$Mean)+h$Country)
+plot(model)
+---------------------------------------------
+
+Data_for_Modelling_stats_paper <- read_excel("C:/Users/saura/OneDrive/Desktop/Data for Modelling_stats_paper.xlsx", 
+                                               +     sheet = "Final_IV")
+> View(Data_for_Modelling_stats_paper)
+final<- Data_for_Modelling_stats_paper
+model <- step(lm(final$`HIV Deaths`~(final$`Life Expectancy`+final$Status+final$BMI+final$GDP+final$Popl+final$Educ+final$Awareness)^3+I(final$GDP^2)+I(final$Educ^2)+I(final$`Life Expectancy`^2)+I(final$Awareness^2),data=final),k=log(nrow(final)))
+model1<- lm(final$`HIV Deaths` ~ final$`Life Expectancy` + final$Educ + I(final$`Life Expectancy`^2) + 
+              final$`Life Expectancy`:final$Educ)
+summary(model2)
+model2<-lm(final$`HIV Deaths` ~ final$`Life Expectancy` + final$Educ + I(final$`Life Expectancy`^2) + 
+             final$`Life Expectancy`:final$Educ+final$Awareness+final$`Death ratio`+final$Status)
+anova(model1,model2)
+
+model3<- lm(final$`HIV Deaths` ~ final$`Life Expectancy` + final$BMI + final$Awareness + 
+              I(final$`Life Expectancy`^2) + final$`Life Expectancy`:final$BMI + 
+              final$`Life Expectancy`:final$Awareness)
+summary(model4)
+model4<- lm(final$`HIV Deaths` ~ final$`Life Expectancy` + final$BMI + 
+              I(final$`Life Expectancy`^2) + final$`Life Expectancy`:final$BMI)
+anova(model5,model3)
+plot(model4)
+model5<-lm(final$`HIV Deaths` ~ final$`Life Expectancy` + final$BMI + final$Educ)
+summary(model5)
+model6<-lm(log(final$`HIV Deaths`)~ final$`Life Expectancy` + final$GDP + final$Educ + log(final$Awareness))
+summary(model6)
+AIC(model6)
+pred<-predict(model6)
+accuracy(pred,final$`HIV Deaths`)
+anova(model6,model5)
+model6<-lm(log(final$`Death ratio`) ~ final$`Life Expectancy` + log(final$Awareness))
+summary(model6)
+index<-sample(0.70*nrow(final))
+train<-final[index,]
+head(train)
+test<-final[-index,]
+model6<-lm(log(train$`Death ratio`) ~ train$`Life Expectancy` + train$BMI + train$Educ + log(train$Awareness))
+summary(model7)
+pred<-predict(model6,test)
+act<-accuracy(pred,test$`HIV Deaths`)
+summary(final$`HIV Deaths`)
+AIC(model7)
+model7<- lm(train$`HIV Deaths` ~ train$`Life Expectancy` + train$BMI + train$Awareness + 
+              I(train$`Life Expectancy`^2) + train$`Life Expectancy`:train$BMI + 
+              train$`Life Expectancy`:train$Awareness)
+pred<-predict(model6,test)
+accuracy(pred,test$`HIV Deaths`)
+summary(final$Awareness)
+------------------------------
+  
+  
+  Data_for_Modelling_stats_paper <- read_excel("C:/Users/saura/OneDrive/Desktop/Data for Modelling_stats_paper.xlsx", 
+                                               +     sheet = "Sheet1")
+> View(Data_for_Modelling_stats_paper)
+fin<-Data_for_Modelling_stats_paper
+ind<-sample(0.70*nrow(fin))
+
+tra<-fin[index,]
+head(train)
+tes<-fin[-index,]
+
+model11<-lm(log(tra$`HIV Deaths`) ~ tra$`Life Expectancy` + tra$BMI + train$Educ + log(tra$Awareness))
+summary(model11)
+pred<-predict(model11,tes)
+accuracy(pred,tes$`HIV Deaths`)
+model12<- lm(tra$`HIV Deaths` ~ tra$`Life Expectancy` + tra$BMI + tra$Awareness + 
+              I(tra$`Life Expectancy`^2) + tra$`Life Expectancy`:tra$BMI + 
+              tra$`Life Expectancy`:tra$Awareness)
+
+model13 <- step(lm(fin$`HIV Deaths`~(fin$`Life Expectancy`+fin$Status+fin$BMI+fin$GDP+fin$Popl+fin$Educ+fin$Awareness)^3+I(fin$GDP^2)+I(fin$Educ^2)+I(fin$`Life Expectancy`^2)+I(fin$Awareness^2),data=fin),k=log(nrow(fin)))
+model14 <- lm(fin$`HIV Deaths` ~ fin$`Life Expectancy` + fin$Awareness + I(fin$`Life Expectancy`^2) + I(fin$Awareness^2) + fin$`Life Expectancy`:fin$Awareness + 
+                fin$BMI:fin$Educ + fin$BMI:fin$Awareness + fin$GDP:fin$Educ + 
+                fin$GDP:fin$Awareness + fin$Educ:fin$Awareness + fin$`Life Expectancy`:fin$GDP:fin$Educ + 
+                fin$`Life Expectancy`:fin$GDP:fin$Awareness + fin$BMI:fin$Educ:fin$Awareness)
+summary(model14)
+summary(fin$BMI)
+anova(model14,model12)
+model15 <- step(lm(fin$`HIV Deaths`~(fin$`Life Expectancy`+fin$GDP+fin$Educ+fin$Awareness)^3+I(fin$GDP^2)+I(fin$Educ^2)+I(fin$`Life Expectancy`^2)+I(fin$Awareness^2),data=fin),k=log(nrow(fin)))
+summary(model15)
+model16 <- step(lm(fin$`HIV Deaths`~(fin$`Life Expectancy`+fin$GDP+fin$Educ+fin$Awareness)^2+I(fin$Awareness^2),data=fin),k=log(nrow(fin)))
+summary(model16)
+anova(model16,model15)
+model18<-lm(fin$`HIV Deaths`~ fin$`Life Expectancy` + fin$GDP + fin$Educ + log(fin$Awareness))
+summary(model17)
+model17<-lm(fin$`HIV Deaths`~ fin$`Life Expectancy` + fin$GDP + fin$Educ)
+summary(model18)
+ano<-anova(model17,model18)
+plot(model18,which=1)
+AIC(model17)
+pred<-predict(model17)
+accuracy(pred,fin$`HIV Deaths`)
+
+model20 <- step(lm(fin$`HIV Deaths`~(fin$`Life Expectancy`+fin$GDP+fin$Educ)^3+I(fin$GDP^2)+I(fin$Educ^2)+I(fin$`Life Expectancy`^2),data=fin),k=log(nrow(fin)))
+model21 <- step(lm(fin$`HIV Deaths`~(fin$`Life Expectancy`+fin$GDP+fin$Educ+fin$Awareness)^3+I(fin$GDP^2)+I(fin$Educ^2)+I(fin$`Life Expectancy`^2)+I(fin$Awareness^2),data=fin),k=log(nrow(fin)))
+
+summary(model20) <- lm(fin$`HIV Deaths` ~ fin$`Life Expectancy` + fin$BMI + fin$`Life Expectancy`:fin$BMI)
+summary(model21) <- lm(fin$`HIV Deaths` ~ fin$`Life Expectancy` + fin$BMI + fin$GDP + 
+                         fin$Educ + fin$Awareness + I(fin$`Life Expectancy`^2) + I(fin$Awareness^2) + 
+                         fin$`Life Expectancy`:fin$BMI + fin$`Life Expectancy`:fin$GDP + 
+                         fin$`Life Expectancy`:fin$Educ + fin$`Life Expectancy`:fin$Awareness + 
+                         fin$BMI:fin$Educ + fin$BMI:fin$Awareness + fin$GDP:fin$Educ + 
+                         fin$GDP:fin$Awareness + fin$Educ:fin$Awareness + fin$`Life Expectancy`:fin$GDP:fin$Educ + 
+                         fin$`Life Expectancy`:fin$GDP:fin$Awareness + fin$BMI:fin$Educ:fin$Awareness)
+anova(model24,model23)
+
+summary(model22)<- lm(fin$`HIV Deaths` ~ fin$`Life Expectancy` + fin$Educ) +fin$Awareness)
+summary(model23)<- lm(fin$`HIV Deaths` ~ fin$`Life Expectancy` + fin$GDP + fin$Educ + 
+               fin$Awareness + I(fin$`Life Expectancy`^2) + fin$`Life Expectancy`:fin$GDP + 
+               fin$`Life Expectancy`:fin$Educ + fin$`Life Expectancy`:fin$Awareness + 
+               fin$GDP:fin$Educ + fin$GDP:fin$Awareness + fin$`Life Expectancy`:fin$GDP:fin$Educ + 
+               fin$`Life Expectancy`:fin$GDP:fin$Awareness)
+model23<- lm(fin$`HIV Deaths` ~ fin$`Life Expectancy` +log(fin$Awareness))
+model24<- lm(fin$`HIV Deaths` ~ fin$`Life Expectancy`)
+anova(model24,model23)
+
+library(MASS)
+min.model = lm(fin$`HIV Deaths` ~ 1)
+fwd.model = step(min.model, direction='forward', , scope=(~ log(fin$Awareness) + fin$`Life Expectancy`))
+
+
+model24<-lm(fin$`HIV Deaths` ~ fin$Educ + fin$`Life Expectancy`) + fin$GDP + log(fin$Awareness))
+summary(model25)
+summary(model17)
+model17<-lm(fin$`HIV Deaths`~ fin$`Life Expectancy` + fin$GDP)
+model25<-lm(fin$`HIV Deaths` ~ fin$`Life Expectancy` + fin$GDP + log(fin$Awareness))
+
+
+
+d<-lm(fin$`HIV Deaths` ~ fin$Educ)
+
+c<-plot(log(fin$Awareness),fin$`HIV Deaths`)
+abline(d,lty=2)
+summary(d)
+plot(fin$`Life Expectancy`, 
+     fin$`HIV Deaths`)
+
+
+dat<-as.data.frame(Data_for_Modelling_stats_paper)
+head(dat)
+summary(dat)
+library(MASS)
+
+
+d<-lm(dat$`HIV Deaths` ~ log(dat$Awareness))
+
+plot(log(fin$Awareness),fin$`HIV Deaths`)
+abline(d,lty=2)
+summary(d)
+plot(fin$`Life Expectancy`, 
+     fin$`HIV Deaths`)
+
+model24<-lm(fin$`HIV Deaths` ~ fin$GDP)
+model25<-lm(fin$`HIV Deaths` ~ fin$Educ + fin$`Life Expectancy`) + fin$GDP + log(fin$Awareness))
+summary(model24)
+
+
+ind<-sample(0.70*nrow(dat))
+tra<-dat[index,]
+head(tra)
+summary(tra)
+tes<-dat[-index,]
+
+
+model17<-lm(tra$`HIV Deaths`~ tra$`Life Expectancy`+tra$GDP+tra$Education)
+summary(model16)<-lm(tra$`HIV Deaths`~ tra$Awareness)
+anova(model17,model18)
+summary(model18)
+pred<-predict(model20,tes)
+accuracy(pred,tes$`HIV Deaths`)
+confusionMatrix(tra,pred)
+model17<-lm(tra$`HIV Deaths`~ tra$`Life Expectancy`)
+summary(model17)
+model18<-lm(tra$`HIV Deaths`~ tra$`Life Expectancy` + log(tra$Awareness))
+summary(model18)
+anova(model17,model18)
+
+
+model19<-lm(tra$`HIV Deaths`~ tra$`Life Expectancy`+tra$GDP)
+summary(model19)
+model20<-lm(tra$`HIV Deaths`~ tra$`Life Expectancy`+tra$GDP + log(tra$Awareness))
+summary(model20)
+anova(model19,model20)
+
+model21<-lm(tra$`HIV Deaths`~ tra$`Life Expectancy`+tra$Education)
+summary(model21)
+model22<-lm(tra$`HIV Deaths`~ tra$`Life Expectancy` + tra$Education + log(tra$Awareness))
+summary(model22)
+anova(model21,model22)
+
+d<-lm(tra$`HIV Deaths` ~ tra$Education)
+plot(log(tra$Awareness),tra$`HIV Deaths`)
+abline(d,lty=2)
+summary(d)
+plot(tra$Education, 
+     tra$`HIV Deaths`)
